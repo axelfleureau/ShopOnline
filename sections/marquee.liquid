@@ -1,0 +1,101 @@
+<style>
+.marquee {
+background: {{ section.settings.marquee_gradient }} !important;
+} 
+</style>
+
+<style>
+.marquee h1, .marquee h2, .marquee h3, .marquee h4, .marquee h5, .marquee h6, .marquee p  {
+  color: {{ section.settings.text_colour }}!important;
+} 
+</style>
+
+
+
+<div class="marquee">
+
+<span class="marquee__content">
+      {% for block in section.blocks %}
+        <h2 class="marquee__text">{{ block.settings.text }}</h2>
+
+      {% if block.settings.image != blank %}
+        <img
+            class="marquee__image"
+            src="{{ block.settings.image | img_url: width: 500 }}"
+          />
+
+
+        
+    {% endif %}
+        
+      {% endfor %}
+
+</span>
+<span aria-hidden="true" class="marquee__content">
+      {% for block in section.blocks %}
+        <h2 class="marquee__text">{{ block.settings.text }}</h2>
+      
+      {% if block.settings.image != blank %}
+        <img
+            class="marquee__image"
+            src="{{ block.settings.image | img_url: width: 500 }}"
+          />
+
+        
+    {% endif %}
+        
+      {% endfor %}
+
+</span>    
+</div> 
+
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+
+      {
+      "type": "color_background",
+        "label": "Marquee Gradient",
+      "id": "marquee_gradient",
+        "default": "linear-gradient(90deg, rgba(243,212,196,1) 0%, rgba(245,215,211,1) 100%)"
+      },
+       {
+	"type": "color",
+	"id": "text_colour",
+	"label": "Text Colour"         
+    }
+
+    
+    ],
+
+
+                 "blocks": [
+                   
+                   
+      {
+        "type": "column",
+        "name": "text",
+        "limit": 20,
+        "settings": [
+          {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<h3>add a cool message here</h3>" 
+          }
+        ]
+      }
+    ],
+
+  
+  
+  "presets": [
+    {
+      "name": "Marquee"
+    }
+  ]
+}
+ 
+{% endschema %}
